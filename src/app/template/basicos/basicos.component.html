@@ -4,15 +4,19 @@
 <div class="row">
   <div class="col">
 
-    <form>
+    <form autocomplete="off" (ngSubmit)="save()" #formulario="ngForm">
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Producto</label>
       </div>
       <div class="col-sm-9">
         <input type="text"
         class="form-control"
+        ngModel
+        name="producto"
+        required
+        minlength="3"
         placeholder="Nombre del producto">
-        <span class="form-text text-danger">Debe ser de 3 letras</span>
+        <span *ngIf="nombreValido()" class="form-text text-danger">Debe ser de 3 letras</span>
       </div>
 
       <div class="mb-3 row">
@@ -21,7 +25,12 @@
       <div class="col-sm-9">
         <input type="number"
         class="form-control"
+        ngModel
+        name="precio"
+        required
+        min="0"
         placeholder="Precio del producto">
+        <span *ngIf="numeroValido()" class="form-text text-danger">El precio debe ser mayor a 0</span>
       </div>
 
       <div class="mb-3 row">
@@ -30,15 +39,36 @@
       <div class="col-sm-9">
         <input type="number"
         class="form-control"
+        ngModel
+        name="existencia"
+        customMin
+        [minimo]="0"
+        required
         placeholder="Existencias del producto">
       </div>
 
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn-primary float-end mt-3">Guardar</button>
+          <button [disabled]="formulario.invalid" type="submit" class="btn-primary float-end mt-3">Guardar</button>
         </div>
       </div>
     </form>
 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ formulario.valid }}</pre>
+
+    <span>Pristine</span>
+    <pre>{{ formulario.pristine }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ formulario.touched }}</pre>
+
+    <span>Value</span>
+    <pre>{{ formulario.value | json }}</pre>
   </div>
 </div>
