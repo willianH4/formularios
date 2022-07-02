@@ -9,6 +9,13 @@ import { NgForm } from '@angular/forms';
 })
 export class BasicosComponent implements OnInit {
 
+  //TODO: establecer valores por defecto en el formulario
+  initForm = {
+    producto: '',
+    precio: 10,
+    existencias: 10
+  }
+
   // TODO: Decorador viewchild para leer referencias de la vista o html
   @ViewChild('formulario') formulario!: NgForm;
 
@@ -27,7 +34,13 @@ export class BasicosComponent implements OnInit {
 
   // save( formulario: NgForm ) {
   save() {
-    console.log( this.formulario )
+    console.log("Guardado correctamente")
+    //TODO: metodo para limpiar el formulario despues del envio de la info
+    this.formulario.resetForm({
+      producto: 'Sin nombre',
+      precio: 0,
+      existencia: 0
+    });
   }
 
 }
