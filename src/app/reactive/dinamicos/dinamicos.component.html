@@ -1,1 +1,72 @@
-<p>dinamicos works!</p>
+<h2>Template: <small>Dinamicos</small></h2>
+<hr>
+
+<form autocomplete="off" [formGroup]="formulario">
+  <div class="mb-3 row">
+    <label for="" class="col-sm-3 col-form-label">Nombre</label>
+    <div class="col-sm-9">
+      <input type="text"
+       class="form-control"
+       formControlName="nombrePersona"
+      placeholder="Nombre de la persona">
+      <span *ngIf="verificaVacio('nombrePersona')" class="form-text text-danger">El nombre es obligarorio</span>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label for="" class="col-sm-3 col-form-label">Agregar</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input type="text" class="form-control"
+        placeholder="Agregar favorito"
+        [formControl]="nuevoFavorito"
+        (keyup.enter)="agregarFavorito()"
+        >
+        <button (click)="agregarFavorito()" class="btn btn-outline-primary" type="button">Agregar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label for="" class="col-sm-3 col-form-label">Favoritos</label>
+    <div class="col-sm-9" formArrayName="favoritos">
+
+      <div class="input-group mb-1" *ngFor="let favorito of favoritosArr.controls; let i = index">
+        <input type="text"
+        class="form-control"
+        [formControlName]="i"
+        placeholder=""
+       >
+
+        <button (click)="borrar(i)" class="btn  btn-outline-danger" type="button"
+        >
+          Eliminar
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+   <div class="col-sm-12">
+    <button (click)="guardar()" type="button" class="btn btn-primary float-end" >Guardar</button>
+   </div>
+  </div>
+
+</form>
+
+<span>Valid</span>
+<pre>{{ formulario.valid }}</pre>
+<hr>
+<br>
+
+<span>Value</span>
+<pre>{{ formulario.value | json }}</pre>
+<br>
+
+<span>Agregar juego</span>
+<pre>{{ nuevoFavorito.valid }}</pre>
+<br>
+<pre>{{ nuevoFavorito.value }}</pre>
+
